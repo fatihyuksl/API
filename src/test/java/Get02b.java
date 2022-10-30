@@ -17,7 +17,7 @@ public class Get02b extends ReqresBaseUrl {
      And
          Server is "cloudflare"
      And
-         Response body should be empty12345678
+         Response body should be empty123456789
   */
     @Test
     public void get02(){
