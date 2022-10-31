@@ -39,7 +39,7 @@ public class Get05b extends ReqresBaseUrl {
         //Send The Request and Get The Response
         Response response = given().spec(spec).when().get("/{first}/{second}");
         response.prettyPrint();
-        //Do Assertion12m34
+        //Do Assertion12m345
         SoftAssert softAssert = new SoftAssert();
         JsonPath jsonpath=response.jsonPath();
 
