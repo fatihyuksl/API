@@ -3,6 +3,7 @@ import io.restassured.response.Response;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class Get02b extends ReqresBaseUrl {
     /*
@@ -17,28 +18,25 @@ public class Get02b extends ReqresBaseUrl {
      And
          Server is "cloudflare"
      And
-         Response body should be empty12345678910
+         Response body should be empty
   */
     @Test
     public void get02(){
 //Set the Url
-        spec.pathParams("first","api","second","users","third",23);
+        spec.pathParams("first","users","second",23);
 
 //Set The Expected Data
 
 //Send The Request and Get The Response
-        Response response = given().spec(spec).when().get("/{first}/{second}/{third}");
+        Response response = given().spec(spec).when().get("/{first}/{second}");
         response.prettyPrint();
 
 //Do Assertion
 
+        assertEquals(404, response.statusCode());
+        assertEquals("HTTP/1.1 404 Not Found", response.statusLine());
+        assertEquals("cloudflare", response.getHeader("Server"));
+        assertEquals(2, response.asString().replaceAll("\\s","").length());
 
     }
-
-
-
-
-
-
-
 }
