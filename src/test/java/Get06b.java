@@ -38,6 +38,7 @@ public class Get06b  extends ReqresBaseUrl {
         System.out.println(jsonPath.getList("data.pantone_value"));
         System.out.println(jsonPath.getList("data.pantone_value").get(0));
         //        3)Print all ids greater than 3 on the console
+        jsonPath.getList("data.findAll {it.id>3}.name");
 
 
         //        Assert that there are 3 ids greater than 3
