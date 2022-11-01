@@ -2,6 +2,9 @@ package get_requests;
 
 import base_urls.GoRestBaseUrl;
 import org.junit.Test;
+import test.data.GoRestTestData;
+
+import java.util.Map;
 
 public class Get10 extends GoRestBaseUrl {
     /*
@@ -27,6 +30,13 @@ public class Get10 extends GoRestBaseUrl {
     @Test
     public void get10() {
         spec.pathParams("first","users","second",2986);
+
+        GoRestTestData obj=new GoRestTestData();
+        Map<String,String> dataKeyMap = obj.dataKeyMap("Navin Talwar","navin_talwar@mclaughlin.name","male","inactive");
+        Map<String,Object> expectedData =obj.expectedDataMethod("null",dataKeyMap);
+        System.out.println(expectedData);
+
+
 
 
     }
