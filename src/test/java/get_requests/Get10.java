@@ -1,10 +1,15 @@
 package get_requests;
 
 import base_urls.GoRestBaseUrl;
+import io.restassured.response.Response;
 import org.junit.Test;
 import test.data.GoRestTestData;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class Get10 extends GoRestBaseUrl {
     /*
@@ -25,7 +30,7 @@ public class Get10 extends GoRestBaseUrl {
         "gender": "male",
         "status": "active"
             }
-     }
+     }12
 */
     @Test
     public void get10() {
@@ -35,6 +40,18 @@ public class Get10 extends GoRestBaseUrl {
         Map<String,String> dataKeyMap = obj.dataKeyMap("Navin Talwar","navin_talwar@mclaughlin.name","male","inactive");
         Map<String,Object> expectedData =obj.expectedDataMethod("null",dataKeyMap);
         System.out.println(expectedData);
+
+        Response response = given().spec(spec).when().get("/{first}/{second}");
+        response.prettyPrint();
+
+        Map<String,Object> actualData = response.as(HashMap.class);
+        System.out.println("actualData = " + actualData);
+        assertEquals(expectedData.get("meta"),actualData.get("meta"));
+        assertEquals(dataKeyMap.get("name"), ((Map)actualData.get("data")).get("name"));
+        assertEquals(dataKeyMap.get("email"), ((Map)actualData.get("data")).get("email"));
+        assertEquals(dataKeyMap.get("gender"), ((Map)actualData.get("data")).get("gender"));
+        assertEquals(dataKeyMap.get("status"), ((Map)actualData.get("data")).get("status"));
+        assertEquals(200,response.statusCode());
 
 
 
