@@ -1,3 +1,5 @@
+package get_requests;
+
 import base_urls.ReqresBaseUrl;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;

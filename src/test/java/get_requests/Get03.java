@@ -1,4 +1,4 @@
-
+package get_requests;
 
 import base_urls.JsonplaceholderBaseUrl;
 import io.restassured.http.ContentType;
