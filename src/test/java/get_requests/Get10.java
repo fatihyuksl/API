@@ -30,7 +30,7 @@ public class Get10 extends GoRestBaseUrl {
         "gender": "male",
         "status": "active"
             }
-     }12
+     }
 */
     @Test
     public void get10() {
