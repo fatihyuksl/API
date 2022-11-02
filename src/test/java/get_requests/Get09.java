@@ -48,7 +48,7 @@ public class Get09 extends RestfulBaseUrl {
                 "bookingdates.checkout",equalTo("2014-10-23"),
                 "additionalneeds",equalTo("Breakfast"));
 
-        //2.yol jsonPath ile234
+        //2.yol jsonPath ile2345
         JsonPath json=response.jsonPath();
         SoftAssert softAssert= new SoftAssert();
         softAssert.assertEquals(json.getString("firstname"),"Sally");
