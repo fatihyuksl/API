@@ -1,14 +1,17 @@
 package get_requests;
 
 import base_urls.JsonplaceholderBaseUrl;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
+import org.testng.asserts.SoftAssert;
 import test.data.JsonPlaceHolderTestData;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 public class Get08  extends JsonplaceholderBaseUrl {
@@ -67,29 +70,44 @@ public class Get08  extends JsonplaceholderBaseUrl {
     }
     @Test
     public void get08b(){
-        //Set the Url
         spec.pathParams("first","todos","second",2);
+        Response response=given().spec(spec).when().get("/{first}/{second}");
+        response.then().statusCode(200).header("Via",equalTo("1.1 vegur")).header("Server",equalTo("cloudflare"));
 
-        //Set The Expected Data ==> Payload
-        JsonPlaceHolderTestData objJsonPlcHldr = new JsonPlaceHolderTestData();
+        //1.yol body ile
+        response.then().statusCode(200).header("Via",equalTo("1.1 vegur")).header("Server",equalTo("cloudflare")).
+                body("userId",equalTo(1),
+                        "title",equalTo("quis ut nam facilis et officia qui"),
+                        "completed",equalTo(false));
 
-        Map<String,Object> expectedData = objJsonPlcHldr.expectedDataMethod(1,"quis ut nam facilis et officia qui",false);
-        System.out.println(expectedData);
+        //2.yol json ile
+        JsonPath json =response.jsonPath();
+        SoftAssert softAssert= new SoftAssert();
+        softAssert.assertEquals(json.getInt("userId"),1);
+        softAssert.assertEquals(json.getString("title"),"quis ut nam facilis et officia qui");
+        softAssert.assertEquals(json.getBoolean("completed"),false);
 
-        //Send The Request and Get The Response
-        Response response = given().spec(spec).when().get("/{first}/{second}");
-        response.prettyPrint();
+        softAssert.assertAll();
 
-        //Do Assertion
-        Map<String, Object> actualData = response.as(HashMap.class);//De-Serialization
-        System.out.println("actualData = " + actualData);
+        //3.yol map ile
+        Map<String,Object> expectedData=new HashMap<>();
+        expectedData.put("userId",1);
+        expectedData.put("title","quis ut nam facilis et officia qui");
+        expectedData.put("completed",false);
+        System.out.println("expected data ="+expectedData);
+
+        Map<String,Object> actualData=response.as(HashMap.class);//De-Serialization
+        System.out.println("actual data ="+actualData);
         assertEquals(expectedData.get("userId"),actualData.get("userId"));
         assertEquals(expectedData.get("title"),actualData.get("title"));
         assertEquals(expectedData.get("completed"),actualData.get("completed"));
-        assertEquals("1.1 vegur", response.header("Via"));
-        assertEquals("cloudflare", response.header("Server"));
-        assertEquals(200, response.statusCode());
+
+        //4.yol map dinamik yontem(66 -70 satirdaki gibi ekleme yapmadik parametre gonderip methodu kullandik)
+        JsonPlaceHolderTestData obj=new JsonPlaceHolderTestData();
+        Map<String,Object> expectedData2=obj.expectedDataMethod(1,"quis ut nam facilis et officia qui",false);
+        Map<String,Object> actualData2=response.as(HashMap.class);
+        assertEquals(expectedData2.get("userId"),actualData2.get("userId"));
+        assertEquals(expectedData2.get("title"),actualData2.get("title"));
+        assertEquals(expectedData2.get("completed"),actualData2.get("completed"));
     }
-
-
 }
