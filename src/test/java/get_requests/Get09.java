@@ -61,7 +61,7 @@ public class Get09 extends RestfulBaseUrl {
 
         softAssert.assertAll();
 
-        //3.yol map ile1234567
+        //3.yol map ile
         Map<String,String> expectedDataBookingdates=new HashMap<>();  //once inner map yapildi
         expectedDataBookingdates.put("checkin","2013-02-23");
         expectedDataBookingdates.put("checkout","2014-10-23");
