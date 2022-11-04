@@ -26,7 +26,7 @@ public class Post01 extends JsonplaceholderBaseUrl {
         When
          I send POST Request to the Url
         Then
-            Status code is 201
+            Status code is 201.
         And
             response body is like {
                                     "userId": 55,
