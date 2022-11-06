@@ -1,6 +1,7 @@
 package get_requests;
 
 import base_urls.GoRestBaseUrl;
+import com.google.gson.JsonObject;
 import io.restassured.response.Response;
 import org.junit.Test;
 import test.data.GoRestTestData;
@@ -52,6 +53,7 @@ public class Get10 extends GoRestBaseUrl {
         assertEquals(dataKeyMap.get("gender"), ((Map)actualData.get("data")).get("gender"));
         assertEquals(dataKeyMap.get("status"), ((Map)actualData.get("data")).get("status"));
         assertEquals(200,response.statusCode());
+
 
 
 
