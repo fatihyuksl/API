@@ -37,7 +37,7 @@ public class Get03 extends JsonplaceholderBaseUrl {
 
         // Set The Expected  Data (Put, Patch, Post)
 
-        // Send the request and Get Response1
+        // Send the request and Get Response12
 
         Response response=given().spec(spec).when().get("/{first}/{second}");
         //response.prettyPrint();
